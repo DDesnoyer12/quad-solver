@@ -12,6 +12,10 @@ int main(int argc, char * argv[]){
     double * a = malloc(sizeof(double));
     double * b = malloc(sizeof(double));
     double * c = malloc(sizeof(double));
+    if(argc > 4) {
+        printf("(main) ERROR: Too many arguments. File: %s, Func: %s, Line #: %d", __FILE__, __func__, __LINE__);
+        exit(-1);
+    }
     if(argc == 4) {
         if(validateCLIArgs(argc, argv) != 0) {
             printf("(main) ERROR: Error in CLI arguments. File: %s, Func: %s, Line #: %d", __FILE__, __func__, __LINE__);
