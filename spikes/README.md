@@ -1,0 +1,1 @@
+This folder contains softwares spikes created during development of the quad-solver project
