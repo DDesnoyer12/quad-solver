@@ -1,1 +1,1 @@
-This folder contains softwares spikes created during development of the quad-solver project
+This folder contains small proof-of-concept code files ("spikes") created during the development of this quad-solver project

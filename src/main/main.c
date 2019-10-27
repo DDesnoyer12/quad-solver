@@ -12,6 +12,11 @@ int main(int argc, char * argv[]){
     double * a = malloc(sizeof(double));
     double * b = malloc(sizeof(double));
     double * c = malloc(sizeof(double));
+     if(argc > 4) {
+        printf("(main) ERROR: Too many arguments. File: %s, Func: %s, Line #: %d", __FILE__, __func__, __LINE__);
+        exit(-1);
+    }
+    /*
     if(argc > 4) {
         printf("(main) ERROR: Too many arguments. File: %s, Func: %s, Line #: %d", __FILE__, __func__, __LINE__);
         exit(-1);
@@ -27,11 +32,8 @@ int main(int argc, char * argv[]){
         }
     } else {
 
-        /*
-            Known Issue: Entering letter values here defaults the value to 0.0, rather than crashing the program.
-            Example: Entering a b c as values yields 0.000000 for each variable.
-        */
-        printf("Enter a, b, and c in order\n");
+
+        printf("Enter a, b, and c in one line separated by a space\n");
         scanf("%lf", a);
         scanf("%lf", b);
         scanf("%lf", c);
@@ -47,6 +49,11 @@ int main(int argc, char * argv[]){
         qsolver(a, b, c, ans1, ans2);
         printf("Solution Set: {%lf, %lf}\n", *ans1, *ans2);
     }
-
+    free(a);
+    free(b);
+    free(c);
+    free(ans1);
+    free(ans2);
+    */
     return 0;
 }

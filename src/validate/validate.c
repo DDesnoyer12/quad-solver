@@ -1,8 +1,3 @@
-#include <math.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
 #include "validate.h"
 
 int validate(double * a, double * b, double * c) {
@@ -24,13 +19,6 @@ int validate(double * a, double * b, double * c) {
 
 int validateCLIArgs(int argc, char * argv[]) {
 
-    /* (Currently Useless) 
-    Potentially used for checking if there is an incorrect number of arguments when providing input from command line.
-    if(argc != 4) {
-        printf("ERROR: Too few arguments\n");
-        return -1;
-    }
-    */
     if(!isdigit(*argv[1]) || !isdigit(*argv[2]) || !isdigit(*argv[3])) {
         printf("(validateCLI) ERROR: One or more of the arguments are not numbers. File: %s, Func: %s, Line #: %d\n", __FILE__, __func__, __LINE__);
         return -1;
