@@ -11,19 +11,25 @@
 
 */
 int qsolver(double * a, double * b, double* c, double * ans1, double * ans2, FILE * errFile){
-    double disc = pow(*b, 2) - 4 * (*a) * (*c);
-    
     // TO DO: Finish qsolver method
     if((*a) == 0) {
         // Equation is not a true quadratic equation
         //fprintf(errFile, "File: %s, Func: %s, Line #: %d\n", __FILE__, __func__, __LINE__);
         //fprintf(errFile, "\tError: %s\n", "a == 0, equation is not a true quadratic equation");
+        printf("Error, division by 0. a cannot be 0.\n");
         return 1;
     }
+    double disc = pow(*b, 2) - 4 * (*a) * (*c);
     if(disc < 0) {
         fprintf(errFile,"   disc = %24.19g\n", disc);
         return 2;
     }
+    if(disc == 0){
+        *ans1 = (-(*b) + disc)/ (2 * (*a));
+        *ans2 = *ans1;
+        return 0;
+    }
+    
     *ans1 = (-(*b) + disc)/ (2 * (*a));
     *ans2 = (-(*b) - disc)/ (2 * (*a));
 
