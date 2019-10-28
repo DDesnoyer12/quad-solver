@@ -1,21 +1,28 @@
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "../qsolver/qsolver.h"
-#include "../validate/validate.h"
+#include "main.h"
 
 int main(int argc, char * argv[]){
+    if(strcmp(argv[1], "--report-logs") == 0 || strcmp(argv[4], "--report-logs") == 0) {
+        REPORTLOGS = 1;
+    }
+    if(REPORTLOGS) {
+        printf("Log file generated in log-reports/");
+        if(createLog() != 0) {
+            printf("Error creating log file");
+        }
+    }
 
-    
     double * ans1 = malloc(sizeof(double));
     double * ans2 = malloc(sizeof(double));
     double * a = malloc(sizeof(double));
     double * b = malloc(sizeof(double));
     double * c = malloc(sizeof(double));
-     if(argc > 4) {
-        printf("(main) ERROR: Too many arguments. File: %s, Func: %s, Line #: %d", __FILE__, __func__, __LINE__);
-        exit(-1);
-    }
+
+    char * input = malloc(513);
+    char buf[512];
+    printf("For help, type \"help\"\n");
+    printf("Enter a, b, and c separated by spaces, or 'Quit' to quit:\n");
+ 
+
     /*
     if(argc > 4) {
         printf("(main) ERROR: Too many arguments. File: %s, Func: %s, Line #: %d", __FILE__, __func__, __LINE__);
@@ -49,11 +56,15 @@ int main(int argc, char * argv[]){
         qsolver(a, b, c, ans1, ans2);
         printf("Solution Set: {%lf, %lf}\n", *ans1, *ans2);
     }
+    */
+    // Free allocated memory
     free(a);
     free(b);
     free(c);
     free(ans1);
     free(ans2);
-    */
+    if(REPORTLOGS) {
+        closeLog();
+    }
     return 0;
 }

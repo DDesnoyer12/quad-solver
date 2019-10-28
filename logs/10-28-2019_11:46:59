@@ -1,0 +1,4 @@
+File: main/main.c Function: main Line #: 15
+Call to main(int argc, char * argv[]. Program beginning.
+
+Error, invalid input. Input format: {a} {b} {c} %s %s %d

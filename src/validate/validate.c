@@ -4,6 +4,9 @@ int validate(double * a, double * b, double * c) {
 
     
     if(*(a) == 0) {
+        char * error = malloc(512);
+        sprintf(error, "(validate) ERROR: a equals 0. File: %s, Func: %s, Line #: %d", __FILE__, __func__, __LINE__);
+        logLine(error);
         printf("(validate) ERROR: a equals 0. File: %s, Func: %s, Line #: %d\n", __FILE__, __func__, __LINE__);
         return -1;
     }
@@ -17,13 +20,20 @@ int validate(double * a, double * b, double * c) {
 
 }
 
-int validateCLIArgs(int argc, char * argv[]) {
+int validateInput(char * input) {
+    char * tok = strtok(input, " ");
+    int numTokens = 0;
+    while(tok != NULL) {
+        tok = strtok(input, " ");
+        numTokens++;
+        printf("%s ", tok);
+    }
+    printf("%d\n", numTokens);
 
-    if(!isdigit(*argv[1]) || !isdigit(*argv[2]) || !isdigit(*argv[3])) {
-        printf("(validateCLI) ERROR: One or more of the arguments are not numbers. File: %s, Func: %s, Line #: %d\n", __FILE__, __func__, __LINE__);
-        return -1;
+    if(numTokens != 3) {
+        printf("Error: Incorrect number of arguments provided.");
     }
 
     return 0;
+} 
 
-}
