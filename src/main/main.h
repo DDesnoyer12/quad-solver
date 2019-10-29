@@ -5,6 +5,8 @@
 #include "../validate/validate.h"
 #include "../log/log.h"
 #include "../help/help.h"
+#include "../getit/getit.h"
+#include "../error/error.h"
 
 int REPORTLOGS;
 

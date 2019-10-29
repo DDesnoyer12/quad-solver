@@ -17,5 +17,10 @@ clear_logs:
 run:
 	./quad-solver
 
+test:
+	./quad-solver < ../test/testfile.txt
+
+test-cli:
+	./quad-solver 1 5 6
 
 
