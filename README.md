@@ -7,4 +7,4 @@ Alternatively, just running
 with no extra arguments prompts the user to enter values manually
 and allows the user to solve multiple equations before the program exits.
 
-### Refer to Specific Directory's ReadMe for more info on the project
+### Refer to a Specific Directory's ReadMe for more info on the project
