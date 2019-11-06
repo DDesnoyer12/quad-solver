@@ -12,7 +12,6 @@
  *  -11 - only one root exists (Not an error, but needed for proper output)
  */
 int qsolver(double * a, double * b, double* c, double * ans1, double * ans2){
-    // TO DO: Finish qsolver method
     if((*a) == 0) {
         // Equation is not a true quadratic equation
         return -9;

@@ -12,9 +12,11 @@ int main(int argc, char * argv[]){
     if(argc == 4) {
         // Concatenate values from argv (command line) to one input string
         sprintf(input, "%s %s %s", argv[1], argv[2], argv[3]);
+        retVal = validateInput(input, a, b, c);
         // Validate the input string
-        if(validateInput(input, a, b, c) != 0) {
-            printf("\n(main) ERROR: There is an error with the input. Exiting. File: %s, Func: %s, Line #: %d\n", __FILE__, __func__, __LINE__);
+        if(retVal != 0) {
+            //printf("\n(main) ERROR: There is an error with the input. Exiting. File: %s, Func: %s, Line #: %d\n", __FILE__, __func__, __LINE__);
+            printError(retVal);
         } else {
             // If input is valid, run it through the qsolver
             retVal = qsolver(a, b, c, ans1, ans2);
@@ -75,14 +77,16 @@ int main(int argc, char * argv[]){
                 printf("a: %f, b: %f, c: %f\n", (*a), (*b), (*c));
                     printf("Solution Set: {%lf, %lf}\n", *ans1, *ans2);
                 } else if (retVal == -9) {
-                    printf("Error, division by 0. a cannot be 0.\n");
+                    //printf("Error, division by 0. a cannot be 0.\n");
                 } else if (retVal == -10) {
-                    printf("Discriminant is less than 0 thus the answer is not real\n");
+                    //printf("Discriminant is less than 0 thus the answer is not real\n");
                 } else if (retVal == -11) {
-                printf("a: %f, b: %f, c: %f\n", (*a), (*b), (*c));
+                    printf("a: %f, b: %f, c: %f\n", (*a), (*b), (*c));
                     printf("Solution Set: {%lf}\n", *ans1);
                 }
-            
+
+                // Call printError() function to report any errors that occurred
+                printError(retVal);
                 
             }
 
