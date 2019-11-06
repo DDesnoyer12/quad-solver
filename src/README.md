@@ -15,7 +15,8 @@
 ## /validate/ 
    contains validate.c, which handles validating user input
 
-makefile is the makefile used to compile all of the .c files in the subdirectories
+## makefile
+is the makefile used to compile all of the .c files in the subdirectories
     Running "make" in the top-level of src produces the executable quad-solver and produces the *.o files in each subdirectory
     Running "make clean" in the top-level of src removes the *.o files in each subdirectory and removes the executable in the top folder
     Running "make run" in the top-level of src runs the program
