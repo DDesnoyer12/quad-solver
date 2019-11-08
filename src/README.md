@@ -15,7 +15,7 @@
 ## /validate/ 
    contains validate.c, which handles validating user input
 
-## /validate/ 
+## /tests/ 
    contains test_qsolver.c, which performs unit tests for the qsolver function
    contains test_validate.c, which performs unit tests for the validateInput function
    contains makefile, which can be run using the command make to compile both unit test files
