@@ -12,7 +12,7 @@ clean:
 	rm -rf $(TARGETS) quad-solver
 
 clear-logs:
-	rm -rf ../logs/*
+	rm -rf ../logs/log-*
 
 run:
 	./quad-solver
@@ -40,5 +40,11 @@ test-norm:
 
 test-cli:
 	./quad-solver 1 5 6
+
+test-qsolver:
+	./tests/test-quadsolver
+
+test-validate:
+	./tests/test-validate
 
 

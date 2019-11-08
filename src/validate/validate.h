@@ -1,3 +1,6 @@
+#ifndef VALIDATE_H
+#define VALIDATE_H
+
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
@@ -7,3 +10,5 @@
 #include "../log/log.h"
 int LOGGING;
 extern int validateInput(char * input, double * a, double * b, double * c);
+
+#endif

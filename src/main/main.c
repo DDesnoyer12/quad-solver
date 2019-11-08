@@ -9,9 +9,7 @@ int main(int argc, char * argv[]){
     char input[512];
     char log[512];
     int retval = 0;
-    for(int i = 0; i < argc; i++) {
-        printf("%s\n", argv[i]);
-    }
+
     // If user enters values on command line, use those instead
     if(argc >= 4) {
 
@@ -26,7 +24,7 @@ int main(int argc, char * argv[]){
             // Set logging toggle to true
             printf("Runtime events are being logged!\n");
             logLine("Runtime events are being logged!");
-            
+            LOGGING = 1;
         }
         // Concatenate values from argv (command line) to one input string
         sprintf(input, "%s %s %s", argv[1], argv[2], argv[3]);
@@ -64,6 +62,20 @@ int main(int argc, char * argv[]){
             }
         }
     } else {
+        if(argc == 2) {
+            if(strstr(argv[1], "--log") != NULL || strstr(argv[1], "--Log") != NULL) {
+ 
+                // Call createLog() to open log file
+                retval = createLog();
+                if(retval != 0) {
+                    printError(retval);
+                }
+                // Set logging toggle to true
+                printf("Runtime events are being logged!\n");
+                logLine("Runtime events are being logged!");
+                LOGGING = 1;
+            }
+        }
         printf("Welcome. Type 'help' for help. Type 'log' to create a log file.\n");
         // If user doesn't enter any values on the command line,
         // prompt them for values and loop until they enter "Exit"

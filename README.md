@@ -6,14 +6,21 @@
     To compile, naviagte to the /src/ folder from within in a command line and run the command 'make'
 
 ## Running
-    To quickly solve a problem, the program can be fed values from the command line if run in the following form:
-    ./quad-solver {a} {b} {c}
-    Alternatively, just running ./quad-solver with no extra arguments prompts the user to enter values manually
-    and allows the user to solve multiple equations before the program exits.
-    Additional options:
-    If running from the command line, adding --log after the values will enable logging for that execution of the program:
-        ./quad-solver {a} {b} {c} --log 
-    If running the program normally, typing 'help' will display a list of help options, and typing 'log' will begin logging runtime events
+    The application can be run in two different ways:
+    ./quad-solver {a} {b} {c} (optional argument: --log)
+    ./quad-solver (optional argument: --log)
+    
+    Passing values from the command line will run the solver for that one set of numbers and then quit.
+    
+    Running without any values on the command line will start a loop that allows the user to solve
+    as many sets of values as they would like until they specify "Exit".
+
+    Optional arguments:
+    Adding '--log' as the final command line argument in either case will enable logging.
+    Alternatively, logging can also be enabled during runtime by typing 'log' when prompted for values.
+
+    Other:
+    Typing 'help' when prompted for values will display a list of help options.
 
 # Directories
 

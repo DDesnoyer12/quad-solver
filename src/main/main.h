@@ -1,3 +1,6 @@
+#ifndef MAIN_H
+#define MAIN_H
+
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,3 +14,5 @@
 int LOGGING;
 
 extern int main(int argc, char * argv[]);
+
+#endif
