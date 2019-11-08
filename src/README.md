@@ -15,6 +15,12 @@
 ## /validate/ 
    contains validate.c, which handles validating user input
 
+## /validate/ 
+   contains test_qsolver.c, which performs unit tests for the qsolver function
+   contains test_validate.c, which performs unit tests for the validateInput function
+   contains makefile, which can be run using the command make to compile both unit test files
+
+
 ## makefile
 is the makefile used to compile all of the .c files in the subdirectories
     Running "make" in the top-level of src produces the executable quad-solver and produces the *.o files in each subdirectory

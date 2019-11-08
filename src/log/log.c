@@ -1,16 +1,17 @@
 #include "log.h"
 FILE * errFile;
+
 /**
- * log.c
- * createLog() is called at the start of the program's execution and creates a log file (located in the 'logs' folder) 
- * detailing events that happen during that execution of the program. 
- * The filename of each log file is a timestamp of when the program began its execution. 
- * logLine() can be called from within any function to write an error/success/other message to the log
- * closeLog() closes the log file at the end of program execution, saving the changes made
+ * Function: createLog()
+ * This function is called if the user specifies that they wish to report a log of the program's runtime events.
+ * It creates a log file in the quad-solver/logs/ folder with the filename being the current timestamp. All events
+ * will get logged to that file for viewing after the program terminates.
+ * Return Values:
+ *   0 - Log file was created successfully
+ *  -1 - Log file was unable to be opened/created
  */
 int createLog() {
-    printf("%d\n", REPORTLOGS);
-    REPORTLOGS = 2;
+
     // Timestamp struct and string buffer
     char tsBuf[40];
 	time_t timestamp = time(NULL);
@@ -19,24 +20,37 @@ int createLog() {
     
     // Append filename (timestamp) to the folder path
     char * filepath = malloc(40);
-    strcpy(filepath, "../logs/");
+    strcpy(filepath, "../logs/log-");
     strcat(filepath, tsBuf);
 
     // Open log file
     if((errFile = fopen(filepath, "w")) == NULL) {
         printf("Error opening/creating log file\n");
-        return -1;
+        return -12;
     }
+    LOGGING = 1;
     return 0;
 }
 
-void logLine(const char * error, ...) {
+/**
+ * Function: logLine(const char * error)
+ * This function takes a string as input and writes it to the log file
+ * Return Values
+ *      None
+ */
+void logLine(char * error) {
     // If log file exists, write error
     if(errFile != NULL) {
         fprintf(errFile, "%s\n", error);
     }
 }
 
+/**
+ * Function: closeLog()
+ * This function closes the log file
+ * Return Values
+ *      None
+ */
 void closeLog() {
     // If log file exists, close it
     if(errFile != NULL) {

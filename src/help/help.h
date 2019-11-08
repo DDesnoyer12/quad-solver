@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "../log/log.h"
-int REPORTLOGS;
+int LOGGING;
 
 extern void displayHelp();

@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-extern int REPORTLOGS;
+extern int LOGGING;
 
 int createLog();
-void logLine(const char * error, ...);
+void logLine(char * error);
 void closeLog();

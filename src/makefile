@@ -1,7 +1,7 @@
 CC = gcc
 
 CFLAGS = -ggdb -Wall -pedantic -std=gnu11
-TARGETS := ./main/main.o ./qsolver/qsolver.o ./validate/validate.o ./log/log.o ./getit/getit.o ./help/help.o
+TARGETS := ./main/main.o ./qsolver/qsolver.o ./validate/validate.o ./log/log.o ./getit/getit.o ./help/help.o ./error/error.o
 
 all: main
 
@@ -11,7 +11,7 @@ main: $(TARGETS)
 clean: 
 	rm -rf $(TARGETS) quad-solver
 
-clear_logs:
+clear-logs:
 	rm -rf ../logs/*
 
 run:

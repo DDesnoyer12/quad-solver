@@ -7,19 +7,38 @@ int main(int argc, char * argv[]){
     double * b = malloc(sizeof(double));
     double * c = malloc(sizeof(double)); 
     char input[512];
-    int retVal = 0;
+    char log[512];
+    int retval = 0;
+    for(int i = 0; i < argc; i++) {
+        printf("%s\n", argv[i]);
+    }
     // If user enters values on command line, use those instead
-    if(argc == 4) {
+    if(argc >= 4) {
+
+        // Check if user enabled logging from command line
+        if(strstr(argv[4], "--log") != NULL || strstr(argv[4], "--Log") != NULL) {
+ 
+            // Call createLog() to open log file
+            retval = createLog();
+            if(retval != 0) {
+                printError(retval);
+            }
+            // Set logging toggle to true
+            printf("Runtime events are being logged!\n");
+            logLine("Runtime events are being logged!");
+            
+        }
         // Concatenate values from argv (command line) to one input string
         sprintf(input, "%s %s %s", argv[1], argv[2], argv[3]);
-        retVal = validateInput(input, a, b, c);
+
+        retval = validateInput(input, a, b, c);
         // Validate the input string
-        if(retVal != 0) {
+        if(retval != 0) {
             //printf("\n(main) ERROR: There is an error with the input. Exiting. File: %s, Func: %s, Line #: %d\n", __FILE__, __func__, __LINE__);
-            printError(retVal);
+            printError(retval);
         } else {
             // If input is valid, run it through the qsolver
-            retVal = qsolver(a, b, c, ans1, ans2);
+            retval = qsolver(a, b, c, ans1, ans2);
             // If qsolver is successful, print the solution set, otherwise print
             // an appropriate error message
             /*
@@ -28,43 +47,72 @@ int main(int argc, char * argv[]){
             * if ret is 2: The descriminant is negative, therefore the answer is not in the set of real numbers
             * if ret is 3: a is 0 which results in division by 0
             */
-            if(retVal == 0){
+            if(retval == 0){                    
+                if(LOGGING == 1) {
+                    sprintf(log, "Two roots returned from call to qsolver with a = %lf, b = %lf, c = %lf. root1 = %lf, root2 = %lf", *a, *b, *c, *ans1, *ans2);
+                    logLine(log);
+                }
                 printf("a: %f, b: %f, c: %f\n", (*a), (*b), (*c));
                 printf("Solution Set: {%lf, %lf}\n", *ans1, *ans2);
-            } else if (retVal == -9) {
-                printf("Error, division by 0. a cannot be 0.\n");
-            } else if (retVal == -10) {
-                printf("Discriminant is less than 0 thus the answer is not real\n");
-            } else if (retVal == -11) {
+            } else if (retval == 1) {                   
+                if(LOGGING == 1) {
+                    sprintf(log, "One root returned from call to qsolver with a = %lf, b = %lf, c = %lf. root = %lf", *a, *b, *c, *ans1);
+                    logLine(log);
+                }
                 printf("a: %f, b: %f, c: %f\n", (*a), (*b), (*c));
                 printf("Solution Set: {%lf}\n", *ans1);
             }
         }
     } else {
-        printf("Welcome. Type 'help' for help.\n");
+        printf("Welcome. Type 'help' for help. Type 'log' to create a log file.\n");
         // If user doesn't enter any values on the command line,
         // prompt them for values and loop until they enter "Exit"
         while(1) {
             // Get user input using getinput function from getit.c
-            retVal = getinput(input);
+            retval = getinput(input);
             // If user enters "Exit", break the loop and exit the program
-            if(strstr(input, "Exit") != NULL || strstr(input, "exit") != NULL) {
+            if(strstr(input, "Exit") != NULL || strstr(input, "exit") != NULL) {                
+                if(LOGGING == 1) {
+                    logLine("Program exiting.");
+                }
                 printf("Thank you for using the application\n");
                 break;
             }
             // If user enters "help" or "Help", print help info form help.c
             if(strstr(input, "help") != NULL || strstr(input, "Help") != NULL) {
+                if(LOGGING == 1) {
+                    logLine("Entering function: displayHelp() in help.c");
+                }
                 // Call displayHelp() from help.c
                 displayHelp();
-                // Skip current iteration of the loop 
+                // Skip the rest of the current iteration of the loop 
+                continue;
+            }            
+            if(strstr(input, "log") != NULL || strstr(input, "Log") != NULL) {
+                // If logging is already being done, don't open another log file
+                if(LOGGING == 1) {
+                    printf("Runtime events are already being logged!\n");
+                } else {
+                    // Call createLog() to open log file
+                    retval = createLog();
+                    if(retval != 0) {
+                        printError(retval);
+                    }
+                    // Set logging toggle to true
+                    printf("Runtime events are being logged!\n");
+                    logLine("Runtime events are being logged!");
+                }
+
+                // Skip the rest of the current iteration of the loop 
                 continue;
             }
             // Validate the input string
-            if(validateInput(input, a, b, c) != 0) {
-                printf("\n(main) ERROR: There is an error with the input. Exiting. File: %s, Func: %s, Line #: %d\n", __FILE__, __func__, __LINE__);
+            retval = validateInput(input, a, b, c);
+            if(retval != 0) {
+                printError(retval);
             } else {
                 // If input is valid, run it through the qsolver
-                retVal = qsolver(a, b, c, ans1, ans2);
+                retval = qsolver(a, b, c, ans1, ans2);
                 // If qsolver is successful, print the solution set, otherwise print
                 // an appropriate error message
                 /*
@@ -73,20 +121,26 @@ int main(int argc, char * argv[]){
                 * if ret is 2: The descriminant is negative, therefore the answer is not in the set of real numbers
                 * if ret is 3: a is 0 which results in division by 0
                 */
-                if(retVal == 0){
-                printf("a: %f, b: %f, c: %f\n", (*a), (*b), (*c));
+                if(retval == 0){                   
+                    if(LOGGING == 1) {
+                        sprintf(log, "Two roots returned from call to qsolver with a = %lf, b = %lf, c = %lf. root1 = %lf, root2 = %lf", *a, *b, *c, *ans1, *ans2);
+                        logLine(log);
+                    }
+                    // qsolver was successful, print both computed roots
+                    printf("a: %f, b: %f, c: %f\n", (*a), (*b), (*c));
                     printf("Solution Set: {%lf, %lf}\n", *ans1, *ans2);
-                } else if (retVal == -9) {
-                    //printf("Error, division by 0. a cannot be 0.\n");
-                } else if (retVal == -10) {
-                    //printf("Discriminant is less than 0 thus the answer is not real\n");
-                } else if (retVal == -11) {
+                } else if (retval == 1) {                   
+                    if(LOGGING == 1) {
+                        sprintf(log, "One root returned from call to qsolver with a = %lf, b = %lf, c = %lf. root = %lf", *a, *b, *c, *ans1);
+                        logLine(log);
+                    }
+                    // If only one root exists, print the one root.
                     printf("a: %f, b: %f, c: %f\n", (*a), (*b), (*c));
                     printf("Solution Set: {%lf}\n", *ans1);
+                } else {
+                    // Call printError() function to report any errors that occurred
+                    printError(retval);
                 }
-
-                // Call printError() function to report any errors that occurred
-                printError(retVal);
                 
             }
 

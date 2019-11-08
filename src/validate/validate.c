@@ -21,9 +21,13 @@
  *     -8: One of more of the inputs is not normal
  */
 int validateInput(char * input, double * a, double * b, double * c) {
+    char log[512];
+    if(LOGGING == 1) {
+        sprintf(log, "Entering function validateInput() with input = %s", input);
+        logLine(log);
+    }
 
     if(input == NULL) {
-        //printf("Error in input (input = NULL)");
         return -1;
     }
     // Convert string values to doubles and store them in a, b, and c
@@ -31,41 +35,31 @@ int validateInput(char * input, double * a, double * b, double * c) {
 
     // If more or less than 3 values were entered, return error message
     if(ret != 3) {
-        //printf("More/Less than 3 values entered. Proper format: {a} {b} {c}\n");
         return -2;
     }
     // Check if a, b, or c are nan
     if(isnan(*a) || isnan(*b) || isnan(*c)) {
-        //printf("Error in input (a, b, or c is NaN)");
         return -3;
     }
     // Check if a, b, or c are inf
     if(isinf(*a) || isinf(*b) || isinf(*c)) {
-        //printf("Error in input (a, b, or c is inf)");
         return -4;
     }
-    // Check if a, b, and c are all normal
-    if(isnormal(*a) && isnormal(*b) && isnormal(*c)) {
-        // Check if a is in range of double values
-        if(((*a) < __DBL_MIN__ && (*a) < -__DBL_MAX__)  || (*a) > __DBL_MAX__) {
-            //printf("Error in input (a is out of range)");
-            return -5;
-        }
-        // Check if b is in range of double values
-        if(((*b) < __DBL_MIN__ && (*b) < -__DBL_MAX__) || (*b) > __DBL_MAX__) {
-            //printf("Error in input (b is out of range)");
-            return -6;
-        }
-        // Check if c is in range of double values
-        if(((*c) < __DBL_MIN__ && (*c) < -__DBL_MAX__) || (*c) > __DBL_MAX__) {
-            //printf("Error in input (c is out of range)");
-            return -7;
-        }
-        
-    } else {
-        printf("Error in input (a, b, or c is not normal)");
-        return -8;
+    // Check if a is 0 or not within range
+    if((*a) == 0) {
+        return -5;
+    } else if(((*a) > __DBL_MAX__ || (*a) < -__DBL_MAX__) && ((*a) < __DBL_MIN__ || (*a) > -__DBL_MIN__)) {
+        return -5;
     }
+    // Check if b is within range
+    if(((*b) > __DBL_MAX__ || (*b) < -__DBL_MAX__) && ((*b) < __DBL_MIN__ || (*b) > -__DBL_MIN__)) {
+        return -6;
+    }
+    // Check if c is within range
+    if(((*c) > __DBL_MAX__ || (*c) < -__DBL_MAX__) && ((*c) < __DBL_MIN__ || (*c) > -__DBL_MIN__)) {
+        return -7;
+    }
+
     // Return 0 if successful
     return 0;
 } 

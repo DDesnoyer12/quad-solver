@@ -8,6 +8,6 @@
 #include "../getit/getit.h"
 #include "../error/error.h"
 
-int REPORTLOGS;
+int LOGGING;
 
 extern int main(int argc, char * argv[]);
